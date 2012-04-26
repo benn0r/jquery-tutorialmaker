@@ -1,0 +1,11 @@
+.tm-overlay {
+	background: #000;
+	opacity: 0.5;
+  	filter: alpha(opacity=50);
+  	position: fixed;
+}
+
+.tm-otop {		top: 0px; right: 0px; left: 0px; }
+.tm-oright {	right: 0px; }
+.tm-obottom {	right: 0px; bottom: 0px; left: 0px; }
+.tm-oleft {		left: 0px; }
