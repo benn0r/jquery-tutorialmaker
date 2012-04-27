@@ -9,3 +9,31 @@
 .tm-oright {	right: 0px; }
 .tm-obottom {	right: 0px; bottom: 0px; left: 0px; }
 .tm-oleft {		left: 0px; }
+
+.tm-bracket {
+	position: fixed;
+}
+
+.tm-btop {
+	border: 5px solid #000;
+	border-bottom: none;
+	height: 10px;
+}
+
+.tm-bbottom {
+	border: 5px solid #000;
+	border-top: none;
+	height: 10px;
+}
+
+.tm-bleft {
+	border: 5px solid #000;
+	border-right: none;
+	width: 10px;
+}
+
+.tm-bright {
+	border: 5px solid #000;
+	border-left: none;
+	width: 10px;
+}
