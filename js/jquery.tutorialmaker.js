@@ -7,8 +7,12 @@
 		
 		if ($('.tm-bracket').size() > 0) {
 			// create new bracket element
-			console.log($('.tm-bracket').data('popover'));
-			$($('.tm-bracket').data('popover').$tip).remove();
+			if ($('.tm-bracket').data('popover') &&
+				$('.tm-bracket').data('popover').$tip) {
+				$($('.tm-bracket').data('popover').$tip).remove();
+			} else {
+				$('.tm-popover').remove();
+			}
 			$('.tm-bracket').remove();
 		}
 		$('body').append('<div class="tm-bracket"></div>');
@@ -70,27 +74,32 @@
 					break;
 			}
 			
-			var nextbtn = $('<a href="" class="btn btn-success btn-mini pull-right">' + 
-				step.button + '</a>');
-			
-			nextbtn.data('options', options);
-			nextbtn.click(function() {
-				$(this).data('options').next();
-				return false;
-			});
-			
-			$('.tm-bracket').popover({
-				title: step.title,
-				content: step.body,
-				placement: step.position,
-				trigger: 'manual'
-			});
-			$('.tm-bracket').popover('show');
-			
-			if (step.button) {
-				$($('.tm-bracket').data('popover').$tip)
-					.find('.popover-title')
-					.append(nextbtn);
+			if (options.popover) {
+				options.popover(options, step);
+			} else if ($('.tm-bracket').popover) {
+				// do the help text thing with bootstrap
+				var nextbtn = $('<a href="" class="btn btn-success btn-mini pull-right">' + 
+					step.button + '</a>');
+				
+				nextbtn.data('options', options);
+				nextbtn.click(function() {
+					$(this).data('options').next();
+					return false;
+				});
+				
+				$('.tm-bracket').popover({
+					title: step.title,
+					content: step.body,
+					placement: step.position,
+					trigger: 'manual'
+				});
+				$('.tm-bracket').popover('show');
+				
+				if (step.button) {
+					$($('.tm-bracket').data('popover').$tip)
+						.find('.popover-title')
+						.append(nextbtn);
+				}
 			}
 		}, options.speed);
 	};
@@ -111,6 +120,13 @@
 						settings.steps[settings.step]);
 			}
 		};
+		
+		settings.stepname = function() {
+			if (settings.steps[settings.step]) {
+				return settings.steps[settings.step].step;
+			}
+			return null;
+		}
 		
 		$('body').append('<div class="tm-overlay tm-otop"></div>');
 		$('body').append('<div class="tm-overlay tm-oright"></div>');
