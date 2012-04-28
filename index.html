@@ -12,6 +12,7 @@
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
 	<link rel="stylesheet" href="tutorialmaker.css">
+	<link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.2/bootstrap.min.js"></script>
@@ -19,48 +20,11 @@
 	<script src="js/jquery.tutorialmaker.js"></script>
 	
 	<script>
+		var helper;
+	
 		$(document).ready(function() {
-			var helper = $.tm({
-				popover: function(options, step) {
-					var text = $('<div class="tm-popover"><h6>' + 
-						step.title + '</h6><p>' + step.body + '</p></div>');
-					$('body').append(text);
-					
-					if (step.button) {
-						var nextbtn = $('<a href="">' + 
-							step.button + '</a>');
-						
-						nextbtn.data('options', options);
-						nextbtn.click(function() {
-							$(this).data('options').next();
-							return false;
-						});
-						
-						var outer = $('<p></p>');
-						outer.append(nextbtn);
-						text.append(outer);
-						
-					}
-					
-					switch (step.position) {
-						case 'left':
-							text.css('top', step.elem.offset().top - 5);
-							text.css('left', step.elem.offset().left - text.outerWidth() - 20);
-							break;
-						case 'top':
-							text.css('top', step.elem.offset().top - text.outerHeight() - 20);
-							text.css('left', step.elem.offset().left - 5);
-							break;
-						case 'right':
-							text.css('top', step.elem.offset().top - 5);
-							text.css('left', step.elem.offset().left + step.elem.outerWidth() + 20);
-							break;
-						case 'bottom':
-							text.css('top', step.elem.offset().top + step.elem.outerHeight() + 20);
-							text.css('left', step.elem.offset().left - 5);
-							break;
-					}
-				},
+			helper = $.tm({
+				popover: 'bootstrap',
 				steps: [
 					{
 						step: 'firststep',
@@ -100,7 +64,7 @@
 				]
 			});
 			
-			helper.next();
+			//helper.next();
 			setTimeout(function() {
 				//alert(helper.stepname());
 			}, 500);
@@ -112,6 +76,40 @@
 	
 	</header>
 	<div role="main" class="container">
+		<p>&nbsp;</p>
+		<div class="hero-unit">
+			<h1>jQuery Tutorialmaker</h1>
+			<p>This is a simple jQuery plugin to make a tutorial or a "Take a tour"-Feature on your 
+			web application.</p>
+			<p><a href="" class="btn btn-primary btn-large" onclick="helper.next(); return false;">Take a tour</a></p>
+		</div>
+		<div class="row">
+			<div class="span8">
+				<h2>Step 1</h2>
+				<p>Init your tutorialmaker. You need to define the steps of your tutorial. A single
+				step is build like this:</p>
+				<pre>
+{
+  step: 'a name for the step',
+  elem: $('#step0'),
+  position: 'bottom',
+  button: 'Next',
+  title: 'Step 0',
+  body: 'Vestibulum erat wisi, condimentum sed, ' +
+    'commodo vitae, ornare sit amet, wisi.',
+}
+				</pre>
+				<pre>
+var helper = $.tm({
+  steps = []
+});
+				</pre>
+			</div>
+			<div class="span4">
+			</div>
+			<div class="span4">
+			</div>
+		</div>
 		<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
 		Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit 
 		amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit 
